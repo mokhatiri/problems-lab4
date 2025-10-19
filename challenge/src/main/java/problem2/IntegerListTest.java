@@ -3,8 +3,8 @@ package problem2;
 import java.util.Scanner;
 public class IntegerListTest
 {
-    static IntegerList integerList = new IntegerList(10);
-    static Scanner userInput = new Scanner(System.in);
+    static IntegerList list = new IntegerList(10);
+    static Scanner scan = new Scanner(System.in);
     //-------------------------------------------------------
 // Create a list, then repeatedly print the menu and do what the
 // user asks until they quit
@@ -12,54 +12,51 @@ public class IntegerListTest
     public static void main(String[] args)
     {
         printMenu();
-        int userChoice = userInput.nextInt();
-        
-        while (userChoice != 0)
+        int choice = scan.nextInt();
+        while (choice != 0)
         {
-            handleUserChoice(userChoice);
+            dispatch(choice);
             printMenu();
-            userChoice = userInput.nextInt();
+            choice = scan.nextInt();
         }
     }
     //--------------------------------------
 // Do what the menu item calls for
 //--------------------------------------
-    public static void handleUserChoice(int userChoice)
+    public static void dispatch(int choice)
     {
         // int loc;
-        switch(userChoice)
+        switch(choice)
         {
             case 0:
                 System.out.println("Bye!");
                 break;
-                
             case 1:
                 System.out.println("How big should the list be?");
-                int newSize = userInput.nextInt();
-                integerList = new IntegerList(newSize);
+                int size = scan.nextInt();
+                list = new IntegerList(size);
                 // list.randomize();
                 break;
-                
             case 2:
-                integerList.print();
+                list.print();
                 break;
                 
             case 3:
                 System.err.println("Enter the integer you want to add : ");
-                int newElement = userInput.nextInt();
-                integerList.addElement(newElement);
+                int newElement = scan.nextInt();
+                list.addElement(newElement);
                 break;
                 
             case 4:
                 System.err.println("Enter the integer you want to remove : ");
-                int elementToRemove = userInput.nextInt();
-                integerList.removeFirst(elementToRemove);
+                int elementToRemove = scan.nextInt();
+                list.removeFirst(elementToRemove);
                 break;
                 
             case 5:
                 System.err.println("Enter the integer you want to remove entirely: ");
-                int elementToRemoveAll = userInput.nextInt();
-                integerList.removeAll(elementToRemoveAll);
+                int elementToRemoveAll = scan.nextInt();
+                list.removeAll(elementToRemoveAll);
                 break;
                 
             default:
@@ -74,7 +71,7 @@ public class IntegerListTest
         System.out.println("\n Menu ");
         System.out.println(" ====");
         System.out.println("0: Quit");
-        System.out.println("1: Create a new list (the list will be empty at first)");
+        System.out.println("1: Create a new list (** do this first!! **)");
         System.out.println("2: Print the list");
         System.out.println("3: Add an integer to the list");
         System.out.println("4: Remove the first occurence of an Integer");

@@ -14,7 +14,7 @@ public class Test {
         // Display computer science students
         cs.displayStudents();
 
-        cs.getOccupancyRate();
+        cs.displayOccupancyRate();
         System.out.println("Find student 22885676 → " + cs.findStudentByCNE("22885676").getFullNameFormatted());
         cs.removeStudent("23585976");
         System.out.println("\nAfter removal:");
@@ -25,7 +25,7 @@ public class Test {
                 "hiba.elbouanani@um6p.ma", " AB 123 ");
         Subject subject1 = new Subject(" cs-101 ", "introduction to java");
 
-        System.out.println("Cleaned employee number: " + instructor1.cleanEmployeeNumber());
+        System.out.println("Cleaned employee ID: " + instructor1.cleanEmployeeId());
         System.out.println("Normalized subject code: " + subject1.normalizedCode());
         System.out.println("Proper subject title: " + subject1.properTitle());
         System.out.println("Instructor summary: " + instructor1.summaryLine());

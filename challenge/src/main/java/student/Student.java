@@ -1,26 +1,26 @@
 package student;
 
 public class Student extends Person {
-    private String cne;
+    private String studentId; // CNE number
     private Major major;
 
-    public Student(String lastName, String firstName, String phone, String email, String cne, Major major) {
-        super(lastName, firstName, phone, email);
-        this.cne = cne;
+    public Student(String lastName, String firstName, String phoneNumber, String emailAddress, String studentId, Major major) {
+        super(lastName, firstName, phoneNumber, emailAddress);
+        this.studentId = studentId;
         this.major = major;
         if (major != null) {
             major.addStudent(this);
         }
     }
-    public Student(String lastName, String firstName, String phone, String email, String cne) {
-        this(lastName, firstName, phone, email, cne, new Major("23", "Computer Science"));
+    public Student(String lastName, String firstName, String phoneNumber, String emailAddress, String studentId) {
+        this(lastName, firstName, phoneNumber, emailAddress, studentId, new Major("23", "Computer Science"));
     }
 
     // Getters
-    public String getCne() { return cne; }
+    public String getStudentId() { return studentId; }
     public Major getMajor() { return major; }
     // Setters
-    public void setCne(String cne) { this.cne = cne; }
+    public void setStudentId(String studentId) { this.studentId = studentId; }
     public void setMajor(Major major) { this.major = major; }
 
     public String getFullNameFormatted() {
@@ -29,7 +29,7 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        return String.format("%s  %s %s", cne, lastName, firstName);
+        return String.format("%s  %s %s", studentId, lastName, firstName);
     }
 }
 

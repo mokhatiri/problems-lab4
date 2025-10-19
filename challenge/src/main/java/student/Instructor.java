@@ -1,37 +1,42 @@
 package student;
 
-public class Instructor extends Person{
-    private String employeeNumber;
+public class Instructor extends Person {
+    private String employeeId;
+
     public Instructor() {
         super();
     }
-    public Instructor(String firstName, String lastName, String phone, String email, String employeeNumber) {
-        super(firstName, lastName, phone, email);
-        this.employeeNumber = employeeNumber;
+    
+    public Instructor(String firstName, String lastName, String phoneNumber, String emailAddress, String employeeId) {
+        super(firstName, lastName, phoneNumber, emailAddress);
+        this.employeeId = employeeId;
     }
 
-    public String getEmployeeNumber() {
-        return employeeNumber;
+    public String getEmployeeId() {
+        return employeeId;
     }
-    public void setEmployeeNumber(String employeeNumber) {
-        this.employeeNumber = employeeNumber;
+    
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public String cleanEmployeeNumber() {
-        if (employeeNumber == null) return null;
-        return employeeNumber.trim().replaceAll("\\s+", "");
+    public String cleanEmployeeId() {
+        if (employeeId == null) return null;
+        return employeeId.trim().replaceAll("\\s+", "");
     }
+    
     public String summaryLine() {
-        return String.format("Instructor[employeeNumber=%s, lastName=%s, firstName=%s]",
-                employeeNumber, lastName, firstName);
+        return String.format("Instructor[employeeId=%s, lastName=%s, firstName=%s]",
+                employeeId, lastName, firstName);
     }
+    
     public String toCard() {
         StringBuilder sb = new StringBuilder();
         sb.append("Instructor ----------\n");
-        sb.append("Employee #: ").append(employeeNumber).append("\n");
+        sb.append("Employee #: ").append(employeeId).append("\n");
         sb.append("Name      : ").append(lastName).append(", ").append(firstName).append("\n");
-        sb.append("Email     : ").append(email).append("\n");
-        sb.append("Phone     : ").append(phone).append("\n");
+        sb.append("Email     : ").append(emailAddress).append("\n");
+        sb.append("Phone     : ").append(phoneNumber).append("\n");
         return sb.toString();
     }
     public String displayName() {

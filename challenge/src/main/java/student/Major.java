@@ -1,81 +1,87 @@
 package student;
 
 public class Major {
-    private static int nextId = 1;
-    private static final int MAX_STUDENTS = 50;
-    private int id;
-    private String code;
-    private String name;
-    private Student[] students;
-    private int studentCount;
+    private static int nextMajorId = 1;
+    private static final int MAXIMUM_STUDENTS_CAPACITY = 50;
+    private int majorId;
+    private String majorCode;
+    private String majorName;
+    private Student[] enrolledStudents;
+    private int enrolledStudentCount;
 
-    public Major(String code, String name) {
-        this.id = nextId++;
-        this.code = code;
-        this.name = name;
-        this.students = new Student[MAX_STUDENTS];
-        this.studentCount = 0;
+    public Major(String majorCode, String majorName) {
+        this.majorId = nextMajorId++;
+        this.majorCode = majorCode;
+        this.majorName = majorName;
+        this.enrolledStudents = new Student[MAXIMUM_STUDENTS_CAPACITY];
+        this.enrolledStudentCount = 0;
     }
 
     // Method to add a student
-    public void addStudent(Student s) {
-        if (studentCount < MAX_STUDENTS) {
-            students[studentCount++] = s;
+    public void addStudent(Student student) {
+        if (enrolledStudentCount < MAXIMUM_STUDENTS_CAPACITY) {
+            enrolledStudents[enrolledStudentCount++] = student;
         } else {
-            System.out.println("Cannot add student: capacity full for " + name);
+            System.out.println("Cannot add student: capacity full for " + majorName);
         }
     }
-    public Student findStudentByCNE(String cne) {
-        for (int i = 0; i < studentCount; i++) {
-            if (students[i].getCne().equals(cne)) {
-                return students[i];
+
+    public Student findStudentByCNE(String studentId) {
+        for (int i = 0; i < enrolledStudentCount; i++) {
+            if (enrolledStudents[i].getStudentId().equals(studentId)) {
+                return enrolledStudents[i];
             }
         }
         return null;
     }
-    public boolean removeStudent(String cne) {
-        for (int i = 0; i < studentCount; i++) {
-            if (students[i].getCne().equals(cne)) {
-                for (int j = i; j < studentCount - 1; j++) {
-                    students[j] = students[j + 1];
+
+    public boolean removeStudent(String studentId) {
+        for (int i = 0; i < enrolledStudentCount; i++) {
+            if (enrolledStudents[i].getStudentId().equals(studentId)) {
+                // Shift remaining students left
+                for (int j = i; j < enrolledStudentCount - 1; j++) {
+                    enrolledStudents[j] = enrolledStudents[j + 1];
                 }
-                students[--studentCount] = null;
+                enrolledStudents[--enrolledStudentCount] = null;
                 return true;
             }
         }
         return false;
     }
-    public int getStudentCount() {
-        return studentCount;
+
+    public int getEnrolledStudentCount() {
+        return enrolledStudentCount;
     }
-    public void getOccupancyRate() {
-        System.out.println(name + " capacity: " + MAX_STUDENTS + " students");
-        System.out.println("Current enrollment: " + studentCount + " students");
-        double rate = (studentCount * 100.0) / MAX_STUDENTS;
-        System.out.println(String.format("Occupancy rate = %.1f%%", rate));
+
+    public void displayOccupancyRate() {
+        System.out.println(majorName + " capacity: " + MAXIMUM_STUDENTS_CAPACITY + " students");
+        System.out.println("Current enrollment: " + enrolledStudentCount + " students");
+        double rate = (enrolledStudentCount * 100.0) / MAXIMUM_STUDENTS_CAPACITY;
+        System.out.printf("Occupancy rate = %.1f%%\n", rate);
     }
-    public String getStudentListAsString() {
+
+    public String getEnrolledStudentsList() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < studentCount; i++) {
-            sb.append(i + 1).append(". ").append(students[i].toString()).append("\n");
+        for (int i = 0; i < enrolledStudentCount; i++) {
+            sb.append(i + 1).append(". ").append(enrolledStudents[i].toString()).append("\n");
         }
         return sb.toString();
     }
 
 
     // Getters
-    public String getCode() { return code; }
-    public String getName() { return name; }
+    public String getMajorCode() { return majorCode; }
+    public String getMajorName() { return majorName; }
 
     // Display all students in the major
     public void displayStudents() {
-        System.out.println("The list of students in the " + name + " major is:");
-        System.out.print(getStudentListAsString());
+        System.out.println("The list of students in the " + majorName + " major is:");
+        System.out.print(getEnrolledStudentsList());
     }
 
     @Override
     public String toString() {
-        return String.format("%s (%s)", name, code);
+        return String.format("%s (%s)", majorName, majorCode);
     }
 
 

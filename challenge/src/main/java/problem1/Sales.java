@@ -4,46 +4,51 @@ import java.util.Scanner;
 
 public class Sales
 {
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("How many salespeople are there: ");
-        int numberOfSalespeople = scanner.nextInt();
-        int[] salesData = new int[numberOfSalespeople];
-
-        // Collect sales data
-        for (int i = 0; i < numberOfSalespeople; i++) {
-            System.out.print("Enter sales for salesperson " + (i + 1) + ": ");
-            salesData[i] = scanner.nextInt();
+        int salesCount = scanner.nextInt();
+        if (salesCount <= 0) {
+            System.out.println("Number of salespeople must be positive.");
+            scanner.close();
+            return;
         }
+        int[] salesAmounts = new int[salesCount];
 
         // Initialize stats
         int totalSalesAmount = 0;
-        int highestSaleAmount = salesData[0];
+        int highestSaleAmount = Integer.MIN_VALUE;
         int topSalespersonId = 0;
-        int lowestSaleAmount = salesData[0];
+        int lowestSaleAmount = Integer.MAX_VALUE;
         int bottomSalespersonId = 0;
 
-        // Display sales data and compute stats
-        System.out.println("\nSalesperson | Sales");
+        // Read sales, display each line, and compute stats in one loop
+        System.out.println("\nSalesperson Sales");
         System.out.println("--------------------");
 
-        for (int i = 0; i < numberOfSalespeople; i++) {
-            System.out.printf("%11d | %d%n", (i + 1), salesData[i]);
-            totalSalesAmount += salesData[i];
+        for (int i = 0; i < salesCount; i++) {
+            System.out.print("Enter sales for salesperson " + (i + 1) + ": ");
+            salesAmounts[i] = scanner.nextInt();
 
-            if (salesData[i] > highestSaleAmount) {
-                highestSaleAmount = salesData[i];
+            // display
+            System.out.printf("%11d | %d%n", (i + 1), salesAmounts[i]);
+
+            // stats
+            totalSalesAmount += salesAmounts[i];
+            if (salesAmounts[i] > highestSaleAmount) {
+                highestSaleAmount = salesAmounts[i];
                 topSalespersonId = i;
             }
-            if (salesData[i] < lowestSaleAmount) {
-                lowestSaleAmount = salesData[i];
+            if (salesAmounts[i] < lowestSaleAmount) {
+                lowestSaleAmount = salesAmounts[i];
                 bottomSalespersonId = i;
             }
         }
 
         // Summary
-        double averageSalesAmount = (double) totalSalesAmount / numberOfSalespeople;
+        double averageSalesAmount = (double) totalSalesAmount / salesCount;
         System.out.println("\nTotal sales: " + totalSalesAmount);
         System.out.printf("Average sales: %.2f%n", averageSalesAmount);
         System.out.println("Highest sale: Salesperson " + (topSalespersonId + 1) + " with $" + highestSaleAmount);
@@ -56,9 +61,9 @@ public class Sales
         System.out.println("\nSalespeople who exceeded that amount:");
         int exceededCount = 0;
 
-        for (int salespersonIndex = 0; salespersonIndex < numberOfSalespeople; salespersonIndex++) {
-            if (salesData[salespersonIndex] >= thresholdAmount) {
-                System.out.println("* Salesperson " + (salespersonIndex + 1) + " with a sale of $" + salesData[salespersonIndex]);
+        for (int i = 0; i < salesCount; i++) {
+            if (salesAmounts[i] > thresholdAmount) {
+                System.out.println("* Salesperson " + (i + 1) + " with a sale of $" + salesAmounts[i]);
                 exceededCount++;
             }
         }
